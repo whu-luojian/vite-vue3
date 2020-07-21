@@ -4,7 +4,7 @@
       <li v-for="c in examples" :key="c" :class="{'active': c === comp}">{{ c }}</li>
     </ul>
     <div class="main">
-      <img alt="Vue logo" src="./assets/logo.png" />
+      <h1>x: {{x}}, y: {{y}}</h1>
       <component :is="comp" :msg="comp"></component>
     </div>
   </div>
@@ -18,6 +18,9 @@ import Computed from './components/Computed.vue'
 import WatchEffect from './components/WatchEffect.vue'
 import Watch from './components/Watch.vue'
 import Lifecycle from './components/Lifecycle.vue'
+import TeleportDemo from './components/Teleport.vue'
+import SuspenseDemo from './components/suspense/SuspenseDemo.vue'
+import useMousePosition from './mouse'
 
 export default {
   name: 'App',
@@ -27,15 +30,21 @@ export default {
     Computed,
     WatchEffect,
     Watch,
-    Lifecycle
+    Lifecycle,
+    TeleportDemo,
+    SuspenseDemo
   },
   setup() {
-    const examples = ['Basic', 'Ref', 'Computed', 'WatchEffect', 'Watch', 'Lifecycle']
+    const examples = ['Basic', 'Ref', 'Computed', 'WatchEffect', 'Watch', 'Lifecycle', 'TeleportDemo', 'SuspenseDemo']
     const comp = ref('Basic')
     const onSwitch = (e) => {
       comp.value = e.target.innerText
     }
+
+    const { x, y } = useMousePosition()
     return {
+      x,
+      y,
       examples,
       comp,
       onSwitch
